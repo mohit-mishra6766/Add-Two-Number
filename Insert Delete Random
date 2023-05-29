@@ -1,0 +1,46 @@
+class RandomizedSet {
+ Map<Integer, Integer> map;
+        int[] nums;
+        int idx;
+        Random random;
+
+        public RandomizedSet() {
+            map = new HashMap<>();
+            nums = new int[2_00_002];
+            idx = 0;
+            random = new Random();
+        }
+
+        public boolean insert(int val) {
+            if (map.containsKey(val)) {
+                return false;
+            }
+
+            nums[idx] = val;
+            map.put(val, idx);
+            idx++;
+            return true;
+        }
+
+        public boolean remove(int val) {
+            if (map.containsKey(val)) {
+                int loc = map.get(val);
+                map.remove(val);
+
+                if (loc != idx - 1) {
+                    nums[loc] = nums[idx - 1];
+                    map.put(nums[idx - 1], loc);
+                }
+
+                idx--;
+                return true;
+            }
+
+            return false;
+        }
+
+        public int getRandom() {
+            int loc = random.nextInt(idx);
+            return nums[loc];
+        }
+    }
