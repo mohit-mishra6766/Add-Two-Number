@@ -1,0 +1,25 @@
+class Solution {
+    HashMap<Node,Node> vis = new HashMap<Node,Node>();
+    public Node dfs(Node node) {
+        // if the node is NULL simply return NULL
+        if(node == null) {
+            return node;
+        }
+        // if the node is already present in the vis, then return reference of that node
+        if(vis.containsKey(node)) return vis.get(node);
+        
+        // make a new node and store the value of original node
+        Node newNode = new Node(node.val);
+        vis.put(node, newNode);
+        
+        // traverse through neighbors of node and push back dfs of each neighbor
+        for(Node edges: node.neighbors) {
+            newNode.neighbors.add(dfs(edges));
+        }
+        return newNode;
+    }
+    public Node cloneGraph(Node node) {
+        Node clone=dfs(node);
+        return clone;
+    }
+}
