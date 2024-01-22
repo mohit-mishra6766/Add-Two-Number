@@ -1,0 +1,34 @@
+
+class Solution
+{
+    public static ArrayList<ArrayList<Integer>> printPaths(Node root, int sum)
+    {
+        // code here
+ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        helper(root,sum,ans,new ArrayList<Integer>());
+        
+        return ans;
+    }
+    static void helper(Node root, int sum, ArrayList<ArrayList<Integer>> ans,ArrayList<Integer> ds)
+    {
+        sum -= root.data;
+        ds.add(root.data);
+        if(sum == 0)
+        {
+            ans.add(new ArrayList<Integer>(ds));
+        }
+        
+        
+        if(root.left != null)
+        {
+            helper(root.left,sum,ans,ds);
+        }
+        
+        if(root.right != null)
+        {
+            helper(root.right,sum ,ans,ds);
+        }
+        
+        ds.remove(ds.size() - 1);
+    }
+}
