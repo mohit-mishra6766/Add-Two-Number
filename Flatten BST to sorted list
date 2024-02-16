@@ -1,0 +1,19 @@
+class Solution {
+    public Node flattenBST(Node root) {
+          return build(root, null);
+}
+
+Node build(Node n, Node parent) {
+    if (n == null) return parent;
+    
+    Node root = build(n.left, n);
+    
+    if (parent != null) {
+        parent.left = n.right;
+    }
+    
+    n.right = build(n.right, parent);
+    
+    return root;
+    }
+}
